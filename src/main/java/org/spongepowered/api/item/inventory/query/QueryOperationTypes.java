@@ -24,11 +24,11 @@
  */
 package org.spongepowered.api.item.inventory.query;
 
-import org.spongepowered.api.data.property.Property;
-import org.spongepowered.api.data.property.PropertyMatcher;
+import org.spongepowered.api.data.Key;
+import org.spongepowered.api.data.KeyValueMatcher;
 import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.inventory.Inventory;
-import org.spongepowered.api.item.inventory.InventoryProperties;
+import org.spongepowered.api.item.inventory.InventoryKeys;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.translation.Translation;
 import org.spongepowered.api.util.Nameable;
@@ -44,7 +44,7 @@ public final class QueryOperationTypes {
     /**
      * Tests based on the title of the inventory.
      *
-     * @see InventoryProperties#TITLE
+     * @see InventoryKeys#TITLE
      * @see Nameable.Translatable#getNameTranslation()
      */
     public static final QueryOperationType<Translation> INVENTORY_TRANSLATION = DummyObjectProvider.createExtendedFor(QueryOperationType.class, "INVENTORY_TRANSLATION");
@@ -85,10 +85,10 @@ public final class QueryOperationTypes {
     /**
      * Tests based on an inventory property present on the target inventory.
      *
-     * @see Inventory#getProperty(Inventory, Property)
+     * @see Inventory#get(Inventory, Key)
      */
-    public static final QueryOperationType<PropertyMatcher<?>> PROPERTY =
-            DummyObjectProvider.createExtendedFor(QueryOperationType.class, "PROPERTY");
+    public static final QueryOperationType<KeyValueMatcher<?>> KEY_VALUE =
+            DummyObjectProvider.createExtendedFor(QueryOperationType.class, "KEY_VALUE");
 
     /**
      * Tests based on the class of the inventory.

@@ -25,7 +25,6 @@
 package org.spongepowered.api.data.value;
 
 import org.spongepowered.api.Sponge;
-import org.spongepowered.api.data.DataHolder;
 import org.spongepowered.api.data.Key;
 
 import java.util.Comparator;

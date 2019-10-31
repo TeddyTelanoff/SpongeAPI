@@ -25,7 +25,6 @@
 package org.spongepowered.api.world;
 
 import org.spongepowered.api.block.BlockState;
-import org.spongepowered.api.data.property.LocationBasePropertyHolder;
 import org.spongepowered.api.effect.Viewer;
 import org.spongepowered.api.util.RandomProvider;
 import org.spongepowered.api.world.chunk.ProtoChunk;
@@ -34,7 +33,7 @@ import org.spongepowered.api.world.gen.TerrainGenerator;
 import org.spongepowered.api.world.storage.WorldProperties;
 import org.spongepowered.api.world.volume.game.GenerationVolume;
 import org.spongepowered.api.world.volume.game.InteractableVolume;
-import org.spongepowered.api.world.volume.game.LocationCompositeValueStore;
+import org.spongepowered.api.world.volume.game.LocationBaseValueHolder;
 import org.spongepowered.api.world.volume.game.ReadableRegion;
 import org.spongepowered.api.world.volume.game.UpdatableVolume;
 import org.spongepowered.api.world.volume.biome.MutableBiomeVolume;
@@ -53,8 +52,7 @@ public interface ProtoWorld<P extends ProtoWorld<P>> extends
         StreamableBlockEntityVolume<P>, // Because this is mutable
         GenerationVolume,
         InteractableVolume,
-        LocationBasePropertyHolder,
-        LocationCompositeValueStore,
+        LocationBaseValueHolder.Mutable,
         UpdatableVolume,
         RandomProvider,
         PhysicsAwareMutableBlockVolume<P>,

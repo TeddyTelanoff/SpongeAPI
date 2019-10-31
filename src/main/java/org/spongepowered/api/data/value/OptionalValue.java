@@ -104,7 +104,7 @@ public interface OptionalValue<E> extends Value<Optional<E>> {
          * @return This value, for chaining
          */
         default OptionalValue.Mutable<E> setElement(@Nullable E value) {
-            return set(Optional.ofNullable(value));
+            return this.set(Optional.ofNullable(value));
         }
 
         @Override
@@ -126,7 +126,7 @@ public interface OptionalValue<E> extends Value<Optional<E>> {
 
         @Override
         default OptionalValue.Mutable<E> asMutableCopy() {
-            return copy();
+            return this.copy();
         }
 
         @Override
@@ -148,7 +148,7 @@ public interface OptionalValue<E> extends Value<Optional<E>> {
          * @return The new value, for chaining
          */
         default OptionalValue.Immutable<E> withElement(@Nullable E value) {
-            return with(Optional.ofNullable(value));
+            return this.with(Optional.ofNullable(value));
         }
 
         @Override
@@ -165,7 +165,7 @@ public interface OptionalValue<E> extends Value<Optional<E>> {
 
         @Override
         default OptionalValue.Mutable<E> asMutableCopy() {
-            return asMutable();
+            return this.asMutable();
         }
 
         @Override

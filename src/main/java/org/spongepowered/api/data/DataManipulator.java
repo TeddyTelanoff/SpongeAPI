@@ -29,6 +29,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.google.common.collect.ImmutableList;
 import org.spongepowered.api.Sponge;
+import org.spongepowered.api.data.value.CopyableValueContainer;
 import org.spongepowered.api.data.value.MergeFunction;
 import org.spongepowered.api.data.value.Value;
 import org.spongepowered.api.data.value.ValueContainer;
@@ -50,7 +51,7 @@ import java.util.function.Predicate;
  * with specialized {@link Function}s to use {@link Mutable#transform(Key, Function)}
  * such that the {@link DataManipulator} is always returned.</p>
  */
-public interface DataManipulator extends ValueContainer {
+public interface DataManipulator extends CopyableValueContainer {
 
     /**
      * Creates a {@link Immutable} view directly based on the

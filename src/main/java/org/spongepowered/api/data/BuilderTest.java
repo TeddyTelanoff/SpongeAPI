@@ -22,39 +22,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.world.volume.game;
+package org.spongepowered.api.data;
 
-import org.spongepowered.api.Game;
-import org.spongepowered.api.data.Keys;
-import org.spongepowered.api.world.volume.block.ReadableBlockVolume;
-import org.spongepowered.api.world.volume.block.entity.ReadableBlockEntityVolume;
-import org.spongepowered.math.vector.Vector3i;
+import org.spongepowered.api.data.value.Value;
+import org.spongepowered.api.entity.Entity;
+import org.spongepowered.api.entity.EntitySnapshot;
+import org.spongepowered.api.item.inventory.ItemStackSnapshot;
+import org.spongepowered.api.util.generator.dummy.DummyObjectProvider;
+import org.spongepowered.math.vector.Vector3d;
 
-/**
- * A very primitive rudimentary volume that can be used by the {@link Game}
- * without impunity, but no guarantees on the provider type of what this
- * primitive volume is based on.
- */
-public interface PrimitiveGameVolume extends ReadableBlockVolume, ReadableBlockEntityVolume {
+@SuppressWarnings("unchecked")
+public class BuilderTest {
 
-    @Override
-    PrimitiveGameVolume getView(Vector3i newMin, Vector3i newMax);
+    private static final Key<Value<Vector3d>> NORMALIZED_VELOCITY = DummyObjectProvider.createFor(Key.class, "NORMALIZED_VELOCITY");
 
-    default int getMaximumLight() {
-        return 15;
+    void test() {
+        DataProviderBuilder.builder().forHolders(Entity.class, EntitySnapshot.class)
+                .key(NORMALIZED_VELOCITY)
+                .get(holder -> holder.get(Keys.VELOCITY).map(Vector3d::normalize).orElse(null))
+                .build();
+
+        DataProviderBuilder.builder().forImmutableHolders(EntitySnapshot.class, ItemStackSnapshot.class)
+                .key(NORMALIZED_VELOCITY)
+                .get(holder -> holder.get(Keys.VELOCITY).map(Vector3d::normalize).orElse(null))
+                .with((holder, value) -> {
+                    return null;
+                })
+                .build();
     }
-
-    default int getEmittedLight(Vector3i pos) {
-        return this.getInt(pos, Keys.LIGHT_EMISSION).orElse(0);
-    }
-
-    default int getEmittedLight(int x, int y, int z) {
-        return this.getInt(x, y, z, Keys.LIGHT_EMISSION).orElse(0);
-    }
-
-    default int getHeight() {
-        return 256;
-    }
-
-    // TODO - Raytraces
 }

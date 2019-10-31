@@ -28,10 +28,8 @@ import org.spongepowered.api.asset.AssetManager;
 import org.spongepowered.api.client.Client;
 import org.spongepowered.api.config.ConfigManager;
 import org.spongepowered.api.data.DataManager;
-import org.spongepowered.api.data.persistence.DataSerializable;
 import org.spongepowered.api.data.persistence.DataBuilder;
-import org.spongepowered.api.data.property.PropertyRegistry;
-import org.spongepowered.api.data.property.provider.PropertyProvider;
+import org.spongepowered.api.data.persistence.DataSerializable;
 import org.spongepowered.api.event.CauseStackManager;
 import org.spongepowered.api.event.EventManager;
 import org.spongepowered.api.network.ChannelRegistrar;
@@ -142,16 +140,6 @@ public interface Game {
      */
     default DataManager getDataManager() {
         return Sponge.getDataManager();
-    }
-
-    /**
-     * Gets the {@link PropertyRegistry} instance to register
-     * {@link PropertyProvider}s.
-     *
-     * @return The property registry
-     */
-    default PropertyRegistry getPropertyRegistry() {
-        return Sponge.getPropertyRegistry();
     }
 
     /**

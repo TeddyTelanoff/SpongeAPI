@@ -30,8 +30,8 @@ import org.spongepowered.api.block.BlockState;
 import org.spongepowered.api.block.BlockType;
 import org.spongepowered.api.block.BlockTypes;
 import org.spongepowered.api.block.entity.BlockEntity;
-import org.spongepowered.api.data.DataHolder;
-import org.spongepowered.api.data.property.DirectionRelativePropertyHolder;
+import org.spongepowered.api.data.DirectionRelativeDataHolder;
+import org.spongepowered.api.data.SerializableDataHolder;
 import org.spongepowered.api.data.value.Value;
 import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.entity.EntityType;
@@ -62,7 +62,7 @@ import java.util.function.BiFunction;
  * <p>Locations are immutable. Methods that change the properties of the
  * location create a new instance.</p>
  */
-public interface Location extends DataHolder.Mutable, DirectionRelativePropertyHolder {
+public interface Location extends SerializableDataHolder.Mutable, DirectionRelativeDataHolder.Mutable {
 
     static Location of(World world, double x, double y, double z) {
         return Sponge.getRegistry().requireFactory(Factory.class).create(world, new Vector3d(x, y, z));

@@ -26,31 +26,26 @@ package org.spongepowered.api.data;
 
 import org.spongepowered.api.data.value.Value;
 import org.spongepowered.api.data.value.ValueContainer;
-import org.spongepowered.api.event.data.ChangeDataHolderEvent;
-import org.spongepowered.api.server.Server;
+import org.spongepowered.api.util.Direction;
 
 import java.util.Optional;
 
-public interface DataProvider<V extends Value<E>, E> {
+public interface DirectionRelativeDataProvider<V extends Value<E>, E> extends DataProvider<V, E> {
 
-    /**
-     * Gets the {@link Key} this provider supports.
-     *
-     * @return The key
-     */
-    Key<V> getKey();
+    @Override
+    default Optional<E> get(DataHolder dataHolder) {
+        return this.get(dataHolder, Direction.NONE);
+    }
 
-    /**
-     * Gets whether this provider will allow asynchronous access for retrieving
-     * and storing value changes through the API and implementation. This is
-     * usually sanity checked by the implementation through a simplified
-     * {@link Server#onMainThread()} as a majority of datas are required to be
-     * synchronous if the changes can end up throwing {@link ChangeDataHolderEvent}s.
-     *
-     * @param dataHolder The data holder
-     * @return True if this provider allows asynchronous access
-     */
-    boolean allowsAsynchronousAccess(DataHolder dataHolder);
+    @Override
+    default Optional<V> getValue(DataHolder dataHolder) {
+        return this.getValue(dataHolder, Direction.NONE);
+    }
+
+    @Override
+    default boolean isSupported(DataHolder dataHolder) {
+        return this.isSupported(dataHolder, Direction.NONE);
+    }
 
     /**
      * Gets the elemental value from the provided {@link DataHolder}. This is
@@ -64,7 +59,7 @@ public interface DataProvider<V extends Value<E>, E> {
      * @param dataHolder The data holder
      * @return The value, if it's supported and exists
      */
-    Optional<E> get(DataHolder dataHolder);
+    Optional<E> get(DataHolder dataHolder, Direction direction);
 
     /**
      * Gets a constructed {@link Value} for the provided {@link DataHolder}.
@@ -79,8 +74,8 @@ public interface DataProvider<V extends Value<E>, E> {
      * @param dataHolder The data holder to get the constructed value from
      * @return The value
      */
-    default Optional<V> getValue(DataHolder dataHolder) {
-        return this.get(dataHolder).map(element -> Value.mutableOf(this.getKey(), element));
+    default Optional<V> getValue(DataHolder dataHolder, Direction direction) {
+        return this.get(dataHolder, direction).map(element -> Value.mutableOf(this.getKey(), element));
     }
 
     /**
@@ -89,30 +84,5 @@ public interface DataProvider<V extends Value<E>, E> {
      * @param dataHolder The data holder
      * @return Whether it's supported
      */
-    boolean isSupported(DataHolder dataHolder);
-
-    DataTransactionResult offer(DataHolder.Mutable container, E element);
-
-    default DataTransactionResult offerValue(DataHolder.Mutable container, V value) {
-        return this.offer(container, value.get());
-    }
-
-    DataTransactionResult remove(DataHolder.Mutable container);
-
-    <I extends DataHolder.Immutable<I>> Optional<I> with(I immutable, E element);
-
-    default <I extends DataHolder.Immutable<I>> Optional<I> withValue(I immutable, V value) {
-        return this.with(immutable, value.get());
-    }
-
-    /**
-     * Gets a {@link DataHolder.Immutable} without
-     * a {@link Value} with the target {@link Key}, if successful.
-     *
-     * @param immutable The immutable value store
-     * @param <I> The type of the immutable value store
-     * @return The new value store, if successful
-     */
-    <I extends DataHolder.Immutable<I>> Optional<I> without(I immutable);
-
+    boolean isSupported(DataHolder dataHolder, Direction direction);
 }
