@@ -47,6 +47,18 @@ public interface DataProvider<V extends Value<E>, E> {
      * {@link Server#onMainThread()} as a majority of datas are required to be
      * synchronous if the changes can end up throwing {@link ChangeDataHolderEvent}s.
      *
+     * <p>A list of methods that are constrained by this check are:
+     * <ul>
+     *     <li>- {@link #get(DataHolder)}</li>
+     *     <li>- {@link #offer(DataHolder.Mutable, Object)}</li>
+     *     <li>- {@link #remove(DataHolder.Mutable)}</li>
+     * </ul>
+     * Conceptually, an immutable {@link DataHolder} will be ignorant of
+     * asynchronous access, however, some cases may exist where attempting to
+     * create new immutable  variants with different values can be still limited
+     * by synchronous access.
+     * </p>
+     *
      * @param dataHolder The data holder
      * @return True if this provider allows asynchronous access
      */

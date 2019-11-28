@@ -37,7 +37,7 @@ import java.util.Optional;
  * A type of item.
  */
 @CatalogedBy(ItemTypes.class)
-public interface ItemType extends CatalogType, Translatable, DataHolder.Immutable {
+public interface ItemType extends CatalogType, Translatable, DataHolder.Immutable<ItemType> {
 
     /**
      * Gets the corresponding {@link BlockType} of this item if one exists.

@@ -42,7 +42,7 @@ import java.util.Optional;
  * via {@link BlockEntity}.</p>
  */
 @CatalogedBy(BlockTypes.class)
-public interface BlockType extends CatalogType, StateContainer<BlockState>, Translatable, DataHolder.Immutable {
+public interface BlockType extends CatalogType, StateContainer<BlockState>, Translatable, DataHolder.Immutable<BlockType> {
 
     /**
      * Return the {@link ItemType} that represents this block.
