@@ -24,6 +24,7 @@
  */
 package org.spongepowered.api.data;
 
+import org.spongepowered.api.data.value.BoundedValue;
 import org.spongepowered.api.data.value.Value;
 import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.entity.EntitySnapshot;
@@ -36,6 +37,8 @@ import org.spongepowered.math.vector.Vector3d;
 public class BuilderTest {
 
     private static final Key<Value<Vector3d>> NORMALIZED_VELOCITY = DummyObjectProvider.createFor(Key.class, "NORMALIZED_VELOCITY");
+    private static final Key<BoundedValue<Double>> BOUNDED_DOUBLE = DummyObjectProvider.createFor(Key.class, "BOUNDED_DOUBLE");
+    private static final Key<Value<Double>> DOUBLE = DummyObjectProvider.createFor(Key.class, "DOUBLE");
 
     void test() {
         DataProviderBuilder.builder().forHolders(Entity.class, EntitySnapshot.class)
@@ -52,5 +55,10 @@ public class BuilderTest {
         DataProviderBuilder.builder().forMutableDirectionRelativeHolder(Location.class)
                 .key(NORMALIZED_VELOCITY)
                 .get((holder, direction) -> holder.get(Keys.VELOCITY).map(v -> v.mul(direction.asOffset())).orElse(Vector3d.ZERO));
+
+        final Value.Immutable<Double> immutableDoubleValue = Value.immutableOf(DOUBLE, 100.0);
+        final Value.Mutable<Double> mutableDoubleValue = Value.mutableOf(DOUBLE, 100.0);
+        final BoundedValue.Immutable<Double> immutableBoundedDoubleValue = Value.immutableOf(BOUNDED_DOUBLE, 100.0);
+        final BoundedValue.Mutable<Double> mutableBoundedDoubleValue = Value.mutableOf(BOUNDED_DOUBLE, 100.0);
     }
 }

@@ -45,28 +45,56 @@ public interface OptionalValue<E> extends Value<Optional<E>> {
      *
      * @param key The key
      * @param element The element
-     * @param <V> The value type
      * @param <E> The element type
      * @return The constructed value
      */
-    static <V extends OptionalValue<E>, E> V mutableOf(Key<V> key, @Nullable E element) {
-        return Value.mutableOf(key, Optional.ofNullable(element));
+    static <E> OptionalValue.Mutable<E> mutableOf(Key<? extends OptionalValue<E>> key, Optional<E> element) {
+        return Value.mutableOf(key, element);
     }
 
     /**
-     * Constructs a immutable {@link OptionalValue} for the
+     * Constructs an immutable {@link OptionalValue} for the
      * given {@link Key} and element. The returned {@link Value}
      * is guaranteed {@link Immutable}, this means that calling
      * {@link #asImmutable()} will return itself.
      *
      * @param key The key
      * @param element The element
-     * @param <V> The value type
      * @param <E> The element type
      * @return The constructed value
      */
-    static <V extends OptionalValue<E>, E> V immutableOf(Key<V> key, @Nullable E element) {
-        return Value.immutableOf(key, Optional.ofNullable(element));
+    static <E> OptionalValue.Immutable<E> immutableOf(Key<? extends OptionalValue<E>> key, Optional<E> element) {
+        return Value.immutableOf(key, element);
+    }
+
+    /**
+     * Constructs a mutable {@link OptionalValue} for the
+     * given {@link Key} and element. The returned {@link Value}
+     * is guaranteed {@link Mutable}, this means that calling
+     * {@link #asMutable()} will return itself.
+     *
+     * @param key The key
+     * @param element The element
+     * @param <E> The element type
+     * @return The constructed value
+     */
+    static <E> OptionalValue.Mutable<E> mutableOf(Key<? extends OptionalValue<E>> key, @Nullable E element) {
+        return mutableOf(key, Optional.ofNullable(element));
+    }
+
+    /**
+     * Constructs an immutable {@link OptionalValue} for the
+     * given {@link Key} and element. The returned {@link Value}
+     * is guaranteed {@link Immutable}, this means that calling
+     * {@link #asImmutable()} will return itself.
+     *
+     * @param key The key
+     * @param element The element
+     * @param <E> The element type
+     * @return The constructed value
+     */
+    static <E> OptionalValue.Immutable<E> immutableOf(Key<? extends OptionalValue<E>> key, @Nullable E element) {
+        return immutableOf(key, Optional.ofNullable(element));
     }
 
     /**
