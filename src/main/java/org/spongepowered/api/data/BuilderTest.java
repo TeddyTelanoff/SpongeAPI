@@ -29,6 +29,7 @@ import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.entity.EntitySnapshot;
 import org.spongepowered.api.item.inventory.ItemStackSnapshot;
 import org.spongepowered.api.util.generator.dummy.DummyObjectProvider;
+import org.spongepowered.api.world.Location;
 import org.spongepowered.math.vector.Vector3d;
 
 @SuppressWarnings("unchecked")
@@ -45,9 +46,11 @@ public class BuilderTest {
         DataProviderBuilder.builder().forImmutableHolders(EntitySnapshot.class, ItemStackSnapshot.class)
                 .key(NORMALIZED_VELOCITY)
                 .get(holder -> holder.get(Keys.VELOCITY).map(Vector3d::normalize).orElse(null))
-                .with((holder, value) -> {
-                    return null;
-                })
+                .with((holder, value) -> holder.with(Keys.VELOCITY, value).orElse(holder))
                 .build();
+
+        DataProviderBuilder.builder().forMutableDirectionRelativeHolder(Location.class)
+                .key(NORMALIZED_VELOCITY)
+                .get((holder, direction) -> holder.get(Keys.VELOCITY).map(v -> v.mul(direction.asOffset())).orElse(Vector3d.ZERO));
     }
 }

@@ -106,7 +106,7 @@ public interface DataProviderBuilder<H extends DataHolder, V extends Value<E>, E
 
         <H extends DataHolder> DataProviderBuilder<H, V, E> forHolder(TypeToken<H> holderType);
 
-        default DataProviderBuilder<DirectionRelativeDataHolder, V, E> forDirectionRelativeHolders(
+        default DirectionRelative<DirectionRelativeDataHolder, V, E> forDirectionRelativeHolders(
                 Class<? extends DirectionRelativeDataHolder> first,
                 Class<? extends DirectionRelativeDataHolder> second,
                 Class<? extends DirectionRelativeDataHolder>... more) {
@@ -117,7 +117,7 @@ public interface DataProviderBuilder<H extends DataHolder, V extends Value<E>, E
                     .build());
         }
 
-        default DataProviderBuilder<DirectionRelativeDataHolder, V, E> forDirectionRelativeHolders(
+        default DirectionRelative<DirectionRelativeDataHolder, V, E> forDirectionRelativeHolders(
                 TypeToken<? extends DirectionRelativeDataHolder> first,
                 TypeToken<? extends DirectionRelativeDataHolder> second,
                 TypeToken<? extends DirectionRelativeDataHolder>... more) {
@@ -128,14 +128,86 @@ public interface DataProviderBuilder<H extends DataHolder, V extends Value<E>, E
                     .build());
         }
 
-        DataProviderBuilder<DirectionRelativeDataHolder, V, E> forDirectionRelativeHolders(
+        DirectionRelative<DirectionRelativeDataHolder, V, E> forDirectionRelativeHolders(
                 Iterable<TypeToken<? extends DirectionRelativeDataHolder>> holderTypes);
 
-        default <H extends DirectionRelativeDataHolder> DataProviderBuilder<H, V, E> forDirectionRelativeHolder(Class<H> holderType) {
-            return this.forHolder(TypeToken.of(holderType));
+        default <H extends DirectionRelativeDataHolder> DirectionRelative<H, V, E> forDirectionRelativeHolder(Class<H> holderType) {
+            return this.forDirectionRelativeHolder(TypeToken.of(holderType));
         }
 
-        <H extends DirectionRelativeDataHolder> DataProviderBuilder<H, V, E> forDirectionRelativeHolder(TypeToken<H> holderType);
+        DirectionRelative<DirectionRelativeDataHolder, V, E> forDirectionRelativeHolders();
+
+        <H extends DirectionRelativeDataHolder> DirectionRelative<H, V, E> forDirectionRelativeHolder(TypeToken<H> holderType);
+
+        default DirectionRelative.Mutable<DirectionRelativeDataHolder.Mutable, V, E> forMutableDirectionRelativeHolders(
+                Class<? extends DirectionRelativeDataHolder.Mutable> first,
+                Class<? extends DirectionRelativeDataHolder.Mutable> second,
+                Class<? extends DirectionRelativeDataHolder.Mutable>... more) {
+            return this.forMutableDirectionRelativeHolders(ImmutableList.<TypeToken<? extends DirectionRelativeDataHolder.Mutable>>builder()
+                    .add(TypeToken.of(first))
+                    .add(TypeToken.of(second))
+                    .addAll(Arrays.stream(more).map(TypeToken::of).collect(Collectors.toList()))
+                    .build());
+        }
+
+        default DirectionRelative.Mutable<DirectionRelativeDataHolder.Mutable, V, E> forMutableDirectionRelativeHolders(
+                TypeToken<? extends DirectionRelativeDataHolder.Mutable> first,
+                TypeToken<? extends DirectionRelativeDataHolder.Mutable> second,
+                TypeToken<? extends DirectionRelativeDataHolder.Mutable>... more) {
+            return this.forMutableDirectionRelativeHolders(ImmutableList.<TypeToken<? extends DirectionRelativeDataHolder.Mutable>>builder()
+                    .add(first)
+                    .add(second)
+                    .add(more)
+                    .build());
+        }
+
+        DirectionRelative.Mutable<DirectionRelativeDataHolder.Mutable, V, E> forMutableDirectionRelativeHolders(
+                Iterable<TypeToken<? extends DirectionRelativeDataHolder.Mutable>> holderTypes);
+
+        default <H extends DirectionRelativeDataHolder.Mutable> DirectionRelative.Mutable<H, V, E> forMutableDirectionRelativeHolder(
+                Class<H> holderType) {
+            return this.forMutableDirectionRelativeHolder(TypeToken.of(holderType));
+        }
+
+        DirectionRelative<DirectionRelativeDataHolder.Mutable, V, E> forMutableDirectionRelativeHolders();
+
+        <H extends DirectionRelativeDataHolder.Mutable> DirectionRelative.Mutable<H, V, E> forMutableDirectionRelativeHolder(
+                TypeToken<H> holderType);
+
+        default <H extends DirectionRelativeDataHolder.Immutable<H>> DirectionRelative.Immutable<H, V, E> forImmutableDirectionRelativeHolders(
+                Class<? extends DirectionRelativeDataHolder.Immutable<?>> first,
+                Class<? extends DirectionRelativeDataHolder.Immutable<?>> second,
+                Class<? extends DirectionRelativeDataHolder.Immutable<?>>... more) {
+            return this.forImmutableDirectionRelativeHolders(ImmutableList.<TypeToken<? extends DirectionRelativeDataHolder.Immutable<?>>>builder()
+                    .add(TypeToken.of(first))
+                    .add(TypeToken.of(second))
+                    .addAll(Arrays.stream(more).map(TypeToken::of).collect(Collectors.toList()))
+                    .build());
+        }
+
+        default <H extends DirectionRelativeDataHolder.Immutable<H>> DirectionRelative.Immutable<H, V, E> forImmutableDirectionRelativeHolders(
+                TypeToken<? extends DirectionRelativeDataHolder.Immutable<?>> first,
+                TypeToken<? extends DirectionRelativeDataHolder.Immutable<?>> second,
+                TypeToken<? extends DirectionRelativeDataHolder.Immutable<?>>... more) {
+            return this.forImmutableDirectionRelativeHolders(ImmutableList.<TypeToken<? extends DirectionRelativeDataHolder.Immutable<?>>>builder()
+                    .add(first)
+                    .add(second)
+                    .add(more)
+                    .build());
+        }
+
+        <H extends DirectionRelativeDataHolder.Immutable<H>> DirectionRelative.Immutable<H, V, E> forImmutableDirectionRelativeHolders(
+                Iterable<TypeToken<? extends DirectionRelativeDataHolder.Immutable<?>>> holderTypes);
+
+        default <H extends DirectionRelativeDataHolder.Immutable<H>> DirectionRelative.Immutable<H, V, E> forImmutableDirectionRelativeHolder(
+                Class<H> holderType) {
+            return this.forImmutableDirectionRelativeHolder(TypeToken.of(holderType));
+        }
+
+        <H extends DirectionRelativeDataHolder.Immutable<H>> DirectionRelative.Immutable<H, V, E> forImmutableDirectionRelativeHolders();
+
+        <H extends DirectionRelativeDataHolder.Immutable<H>> DirectionRelative.Immutable<H, V, E> forImmutableDirectionRelativeHolder(
+                TypeToken<H> holderType);
 
         default Mutable<DataHolder.Mutable, V, E> forMutableHolders(Class<? extends DataHolder.Mutable> first,
                 Class<? extends DataHolder.Mutable> second, Class<? extends DataHolder.Mutable>... more) {
@@ -202,16 +274,100 @@ public interface DataProviderBuilder<H extends DataHolder, V extends Value<E>, E
 
     interface DirectionRelative<H extends DirectionRelativeDataHolder, V extends Value<E>, E> extends DataProviderBuilder<H, V, E> {
 
-        DataProviderBuilder<H, V, E> get(BiFunction<H, Direction, @Nullable E> function);
+        @Override
+        <NV extends Value<NE>, NE> DirectionRelative<H, NV, NE> key(Key<NV> key);
 
-        DataProviderBuilder<H, V, E> getValue(BiFunction<H, Direction, @Nullable V> function);
+        @Override
+        DirectionRelative<H, V, E> allowAsyncAccess();
+
+        @Override
+        DirectionRelative<H, V, E> allowAsyncAccess(Predicate<H> function);
+
+        @Override
+        DirectionRelative<H, V, E> isSupported(Predicate<H> function);
+
+        @Override
+        DirectionRelative<H, V, E> get(Function<H, @Nullable E> function);
+
+        @Override
+        DirectionRelative<H, V, E> getValue(Function<H, @Nullable V> function);
+
+        DirectionRelative<H, V, E> get(BiFunction<H, Direction, @Nullable E> function);
+
+        DirectionRelative<H, V, E> getValue(BiFunction<H, Direction, @Nullable V> function);
 
         interface Mutable<H extends DirectionRelativeDataHolder.Mutable, V extends Value<E>, E>
                 extends DataProviderBuilder.Mutable<H, V, E>, DirectionRelative<H, V, E> {
+
+            @Override
+            <NV extends Value<NE>, NE> DirectionRelative.Mutable<H, NV, NE> key(Key<NV> key);
+
+            @Override
+            DirectionRelative.Mutable<H, V, E> allowAsyncAccess();
+
+            @Override
+            DirectionRelative.Mutable<H, V, E> allowAsyncAccess(Predicate<H> function);
+
+            @Override
+            DirectionRelative.Mutable<H, V, E> isSupported(Predicate<H> function);
+
+            @Override
+            DirectionRelative.Mutable<H, V, E> get(Function<H, @Nullable E> function);
+
+            @Override
+            DirectionRelative.Mutable<H, V, E> getValue(Function<H, @Nullable V> function);
+
+            @Override
+            DirectionRelative.Mutable<H, V, E> get(BiFunction<H, Direction, @Nullable E> function);
+
+            @Override
+            DirectionRelative.Mutable<H, V, E> getValue(BiFunction<H, Direction, @Nullable V> function);
+
+            @Override
+            DirectionRelative.Mutable<H, V, E> offer(BiFunction<H, E, DataTransactionResult> function);
+
+            @Override
+            DirectionRelative.Mutable<H, V, E> offerValue(BiFunction<H, V, DataTransactionResult> function);
+
+            @Override
+            DirectionRelative.Mutable<H, V, E> remove(Function<H, DataTransactionResult> function);
         }
 
         interface Immutable<H extends DirectionRelativeDataHolder.Immutable<H>, V extends Value<E>, E>
                 extends DataProviderBuilder.Immutable<H, V, E>, DirectionRelative<H, V, E> {
+
+            @Override
+            <NV extends Value<NE>, NE> DirectionRelative.Immutable<H, NV, NE> key(Key<NV> key);
+
+            @Override
+            DirectionRelative.Immutable<H, V, E> allowAsyncAccess();
+
+            @Override
+            DirectionRelative.Immutable<H, V, E> allowAsyncAccess(Predicate<H> function);
+
+            @Override
+            DirectionRelative.Immutable<H, V, E> isSupported(Predicate<H> function);
+
+            @Override
+            DirectionRelative.Immutable<H, V, E> get(Function<H, @Nullable E> function);
+
+            @Override
+            DirectionRelative.Immutable<H, V, E> getValue(Function<H, @Nullable V> function);
+
+            @Override
+            DirectionRelative.Immutable<H, V, E> get(BiFunction<H, Direction, @Nullable E> function);
+
+            @Override
+            DirectionRelative.Immutable<H, V, E> getValue(BiFunction<H, Direction, @Nullable V> function);
+
+            @Override
+            DirectionRelative.Immutable<H, V, E> with(BiFunction<H, E, @Nullable H> function);
+
+            @Override
+            DirectionRelative.Immutable<H, V, E> withValue(BiFunction<H, V, @Nullable H> function);
+
+            @Override
+            DirectionRelative.Immutable<H, V, E> without(Function<H, @Nullable H> function);
         }
     }
 

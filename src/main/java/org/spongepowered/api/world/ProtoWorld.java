@@ -33,7 +33,7 @@ import org.spongepowered.api.world.gen.TerrainGenerator;
 import org.spongepowered.api.world.storage.WorldProperties;
 import org.spongepowered.api.world.volume.game.GenerationVolume;
 import org.spongepowered.api.world.volume.game.InteractableVolume;
-import org.spongepowered.api.world.volume.game.LocationBaseValueHolder;
+import org.spongepowered.api.world.volume.game.LocationBaseDataHolder;
 import org.spongepowered.api.world.volume.game.ReadableRegion;
 import org.spongepowered.api.world.volume.game.UpdatableVolume;
 import org.spongepowered.api.world.volume.biome.MutableBiomeVolume;
@@ -52,7 +52,7 @@ public interface ProtoWorld<P extends ProtoWorld<P>> extends
         StreamableBlockEntityVolume<P>, // Because this is mutable
         GenerationVolume,
         InteractableVolume,
-        LocationBaseValueHolder.Mutable,
+        LocationBaseDataHolder.Mutable,
         UpdatableVolume,
         RandomProvider,
         PhysicsAwareMutableBlockVolume<P>,

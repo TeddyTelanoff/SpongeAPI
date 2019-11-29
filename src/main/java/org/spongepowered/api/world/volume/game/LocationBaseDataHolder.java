@@ -24,7 +24,7 @@
  */
 package org.spongepowered.api.world.volume.game;
 
-import static com.google.gson.internal.$Gson$Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.google.common.collect.ImmutableSet;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -52,7 +52,7 @@ import java.util.function.Function;
  * A type of {@link Location} based value store that can handle proxied data api
  * related queries for specific positions.
  */
-public interface LocationBaseValueHolder {
+public interface LocationBaseDataHolder {
 
     /**
      * Gets the value of data that is keyed to the provided {@link Key} at the
@@ -383,7 +383,7 @@ public interface LocationBaseValueHolder {
      */
     Set<Value.Immutable<?>> getValues(int x, int y, int z);
 
-    interface Mutable extends LocationBaseValueHolder {
+    interface Mutable extends LocationBaseDataHolder {
 
         /**
          * Applies a transformation on the pre-existing value of the data keyed by
