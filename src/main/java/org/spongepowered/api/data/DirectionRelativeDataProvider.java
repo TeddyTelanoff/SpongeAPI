@@ -75,7 +75,7 @@ public interface DirectionRelativeDataProvider<V extends Value<E>, E> extends Da
      * @return The value
      */
     default Optional<V> getValue(DataHolder dataHolder, Direction direction) {
-        return this.get(dataHolder, direction).map(element -> Value.mutableOf(this.getKey(), element));
+        return this.get(dataHolder, direction).map(element -> Value.genericMutableOf(this.getKey(), element));
     }
 
     /**

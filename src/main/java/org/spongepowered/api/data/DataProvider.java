@@ -92,7 +92,7 @@ public interface DataProvider<V extends Value<E>, E> {
      * @return The value
      */
     default Optional<V> getValue(DataHolder dataHolder) {
-        return this.get(dataHolder).map(element -> Value.mutableOf(this.getKey(), element));
+        return this.get(dataHolder).map(element -> Value.genericMutableOf(this.getKey(), element));
     }
 
     /**
