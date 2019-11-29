@@ -98,6 +98,11 @@ public final class EventContextKeys {
     public static final EventContextKey<ChangeBlockEvent.Break> BREAK_EVENT = createFor("BREAK_EVENT");
 
     /**
+     * Represents the command string that was provided to the command processor.
+     */
+    public static final EventContextKey<String> COMMAND_STRING = createFor("COMMAND_STRING");
+
+    /**
      * Represents the creator of an {@link Entity}.
      */
     public static final EventContextKey<User> CREATOR = createFor("CREATOR");
@@ -187,10 +192,10 @@ public final class EventContextKeys {
     public static final EventContextKey<Location> LOCATION = createFor("LOCATION");
 
     /**
-     * Used during command execution, indicates the {@link MessageReceiver} to
+     * Used during command execution, indicates the {@link MessageChannel} to
      * send any messages to.
      */
-    public static final EventContextKey<MessageReceiver> MESSAGE_TARGET = createFor("MESSAGE_TARGET");
+    public static final EventContextKey<MessageChannel> MESSAGE_CHANNEL = createFor("MESSAGE_CHANNEL");
 
     /**
      * Used for {@link org.spongepowered.api.event.block.ChangeBlockEvent.Post} to provide
